@@ -33,7 +33,7 @@ ScriptingCore 实例有 evalString 方法，可以传入 JS 字符串执行相�
 ScriptingCore::getInstance()->evalString("console.log('Hello word!')");
 ```
 
-如果要接收返回值，稍微麻烦一点，见 [JSBH_EvalJSStringReturnString()](todo://)。
+如果要接收返回值，稍微麻烦一点，见 [JSBH_EvalJSStringReturnString()](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/Classes/JSBH.mm#L45)。
 
 ScriptingCore 除了 eval 之外，还有其它像 executeFunctionWithOwner 这样的方法，但是大都要求有一定的上下文，一般在下面提到的 JSB 注入中才能用到。
 
@@ -55,7 +55,7 @@ Cosos2d 中 JSB 有两种方式：auto、manual。网上搜 cocos2d js binding �
 
 我写了一些宏，把不需要关心的部分隐藏掉，下面讲的都是封装后的使用。这种东西，还是例子来得清晰，在 demo 中，iOSBinding 包含所有绑定逻辑，JSBH 里是 js-binding 的辅助工具。
 
-[iOSBinding.h](todo://) 很简单，对外暴露了一个方法，调用即可完成注册。
+[iOSBinding.h](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.h) 很简单，对外暴露了一个方法，调用即可完成注册。
 
 ```h
 #import <Foundation/Foundation.h>
@@ -63,7 +63,7 @@ Cosos2d 中 JSB 有两种方式：auto、manual。网上搜 cocos2d js binding �
 void jsb_ios_load();
 ```
 
-再看 [iOSBinding.m](todo://)，注入类到 JS 的部分不过 30 行
+再看 [iOSBinding.m](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm#L65)，注入类到 JS 的部分不过 30 行
 
 ```cpp
 // 因为我只想把类当作一个名字空间，不希望创建实例，那么构造函数和析构函数就留空不实现
@@ -96,7 +96,7 @@ void jsb_ios_load() {
 }
 ```
 
-然后就是一个方法的具体实现了 [iOSBinding.m](todo://)
+然后就是一个方法的具体实现了 [iOSBinding.m](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm#L14)
 
 ```cpp
 bool demoAdd(JSContext* cx, uint32_t argc, jsval* vp) {
@@ -123,7 +123,7 @@ bool demoAdd(JSContext* cx, uint32_t argc, jsval* vp) {
 }
 ```
 
-写新的方法照着我的代码改一下就行了，异步回调的见 [iOSBinding.m](todo://)
+写新的方法照着我的代码改一下就行了，异步回调的见 [iOSBinding.m](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm#L32)
 
 要更复杂的可以看看 cocos2d-x/cocos/scripting/js-bindings/manual 里的实现。
 
