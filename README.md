@@ -140,6 +140,16 @@ bool demoAdd(JSContext* cx, uint32_t argc, jsval* vp) {
 
 写这个 demo 我的首要目标就是尽可能保持简单、清晰。我不碰 Android 开发的东西，但是这里的方案稍作修改也适用于 Android 和其它平台。
 
+工具的话为了简单我不会做全，比如类型转换只有 string 的比较全，需要用的时候自己实现吧。
+
+主要涉及的文件：
+
+* Javascript 部分在 [app.js](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/master/src/app.js)
+* 绑定工具在 [JSBH](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/master/frameworks/runtime-src/Classes/JSBH.h)
+* 绑定的例子在 [iOSBinding](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/master/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm)
+
+JSB 的东西我研究并不多，不过两天。踩过的坑，发出来其他人就不用踩了，如有纰漏求指正。
+
 ## 维护 Cocos2d 项目的建议
 
 如果你需要写比较多的原生代码的话：
