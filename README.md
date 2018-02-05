@@ -41,7 +41,7 @@ eval is evil，简单但尽量避免使用。不得不用时注意不要频繁�
 
 ## <a name="jsb"></a>Native JSB 注入
 
-相较上面两种方式，JSB 注入就强大多了（相应也更复杂），Cocos2d-x 引擎是 C++ 写的，JS 能调用通过的就是 JSB。
+相较上面两种方式，JSB 注入就强大多了（相应也更复杂），Cocos2d-x 引擎是 C++ 写的，能被 JS 调用靠的就是 JSB。
 
 Cosos2d 中 JSB 有两种方式：auto、manual。网上搜 cocos2d js binding 可以搜到大把的文章，要么告诉你用官方的脚本自动绑定，要么贴出大段不知从那儿来 copy 来的代码手动完成绑定。
 
@@ -66,7 +66,7 @@ void jsb_ios_load();
 再看 [iOSBinding.m](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm#L65)，注入类到 JS 的部分不过 30 行
 
 ```cpp
-// 因为我只想把类当作一个名字空间，不希望创建实例，那么构造函数和析构函数就留空不实现
+// 保持简单，只把类当作一个名字空间，不创建实例，构造函数和析构函数即可留空
 bool js_class_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     return false;
 }
@@ -96,7 +96,16 @@ void jsb_ios_load() {
 }
 ```
 
-然后就是一个方法的具体实现了 [iOSBinding.m](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm#L14)
+JS 可像这样调用：
+
+```js
+if (iOS) {
+    var ret = iOS.demoAdd(1, 2);
+    // 3
+}
+```
+
+然后就是方法的实现 [iOSBinding.m](https://github.com/BB9z/Cocos2d-js-binding-demo/blob/f78d5dc16bd0c8a5664fc435231b78e9d480d45a/frameworks/runtime-src/proj.ios_mac/iOSBinding.mm#L14)
 
 ```cpp
 bool demoAdd(JSContext* cx, uint32_t argc, jsval* vp) {
